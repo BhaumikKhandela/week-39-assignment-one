@@ -62,10 +62,12 @@ pub mod cpi_native {
 
 #[derive(Accounts)]
 pub struct CpiContext<'info> {
+    /// CHECK: This account will be created/modified by the native program
     #[account(mut)]
-    pub data_account: AccountInfo<'info>,
+    pub data_account: Signer<'info>,
     #[account(mut)]
     pub payer: Signer<'info>,
     pub system_program: Program<'info, System>,
+    /// CHECK: This is the native counter program we're calling via CPI
     pub cpi_program: AccountInfo<'info>,
 }
